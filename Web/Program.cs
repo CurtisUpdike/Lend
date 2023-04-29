@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Web.Data;
+using Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddDbContext<LendContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
-// Add services to the container.
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<LendContext>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
